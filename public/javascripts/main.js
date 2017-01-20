@@ -17,7 +17,8 @@
         $scope.processForm = function(selectedItem){
             //save the selected item before wiping it
             $scope.formData.group = selectedItem['display'];
-            selectedItem = null;
+            self.selectedItem = null;
+            self.searchText = "";
             $http({
                 method: 'POST',
                 url: '/write',
@@ -25,6 +26,7 @@
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function(response){
                 writeData(response, $scope);
+                selectedItem = null;
 
             });
         
