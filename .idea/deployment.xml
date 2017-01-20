@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="sarabucloud.com">
+    <serverData>
+      <paths name="sarabucloud.com">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/production" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

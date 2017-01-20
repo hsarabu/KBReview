@@ -1,0 +1,26 @@
+extends layout
+block content
+    link(rel='stylesheet' href='/stylesheets/login.css')
+    script(src='/javascripts/login.js')
+    div(id="everything")
+        div(class="container-fluid")
+            div(class='col-md-6 col-md-offset-3')
+                h2.muli.text-center Please enter your 4 Letter and password
+                //create div for Angular Material form
+                div(ng-controller='formController' layout='column' ng-cloak class='md-inline-form' id='formDiv')
+                    md-content(layout-padding style='padding-left: 0px')
+                        div(style='padding-left: 0px')
+                            form(ng-submit='processForm()' name='contactForm')
+                                //generate each input, email input automatically checks the email and is required. Nothing else is required
+                                div(layout-gt-xs='row' class='signup')
+                                    md-input-container(class='md-block')
+                                        label 4 Letter
+                                        input(type='text' ng-model='formData.login' placeholder='HSAR' required)
+                                div(layout-gt-xs='row' class='login')
+                                    md-input-container(class='md-block')
+                                        label Password
+                                        input(type='password' ng-model='formData.password' required)
+                                //submit the form on click
+                                div(class='center-block form-group' class='login')
+                                    md-button(type='submit' class='md-raised' id='btn' style='padding-left: 0px; margin-left: 0px') submit
+

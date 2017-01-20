@@ -1,0 +1,25 @@
+everything {
+  height: 100% !important;
+}
+a {
+  color: #00B7FF;
+}
+body {
+  font-family: 'Playfair Display', 'sans-serif';
+}
+
+toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
+  color: white; }
+
+md-input-container {
+  width: 100%;
+}
+body {
+  background-color: white;
+}
+.md-whiteframe-5dp {
+  background-color: rgb(250,250,250) !important;
+}
+/*md-content.md-default-theme, md-content {
+  background-color: transparent !important;
+}*/
