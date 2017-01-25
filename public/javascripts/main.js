@@ -1,6 +1,6 @@
 //create the angular module
 //ngMaterial is a dependancy that handles input design
-
+var todoDocs;
 (function(){
     'use strict';
     angular
@@ -24,8 +24,9 @@
                 url: '/write',
                 data: $.param($scope.formData),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).then(function(response){
-                writeData(response, $scope);
+            }).then(function(){
+                todoDocs.data.shift();
+                writeData(todoDocs, $scope);
                 selectedItem = null;
 
             });
@@ -33,7 +34,8 @@
         };
 
         $scope.$watch('$viewContentLoaded', function() {
-            $http.get('/get').then(function(response){
+            $http.get('/todoDocs').then(function(response){
+                todoDocs = response; 
                 writeData(response, $scope);
             });
             
@@ -82,45 +84,20 @@
 
         }
 
-        //begin code for owners
-        loadAllOwners();
-        self.queryOwners = queryOwners();
-
-        function queryOwners(query) {
-            return query ? self.owners.filter( createFilterFor(query ) ) : self.owners;
-        }
-
-        function loadAllOwners() {
-            $http.get("/getOwners").success(function(data){
-                allOwners = data[0].owner;
-                for (var i = 1; i < data.length; i++){
-                    allOwners = allOwners + "," + data[i].owner
-                }
-            }).then(function(){
-                var ownerArray = allOwners.split(',');
-                self.owners = ownerArray.map( function( owner){
-                    return {
-                        value: owner.toLowerCase(),
-                        display: owner
-                    }
-                })
-            })
-        }
-
     };
 })();
 
     function writeData(response, $scope){
+        var done = 0; //lazy, I don't want to change the rest of the code
         $scope.formData = {};
-        $scope.currentData.pendingReview = response.data.pendingReview;
-        console.log($scope.currentData.pendingReview);
-        $scope.currentData.docTitle = response.data.docTitle;
-        $scope.currentData.owner = response.data.owner;
-        $('#docLink').attr("href", "https://kb.wisc.edu/kbAdmin/document.php?id=" + response.data.docId).attr('target','_blank');
-        $scope.currentData.docId = response.data.docId;
-        $scope.formData.docId = response.data.docId;
-        $scope.formData.owner = response.data.owner;
-        $scope.formData.commentsTopic = response.data.commentsTopics;
-        $scope.formData.commentsOwner = response.data.commentsOwnership; 
+        //$scope.currentData.pendingReview = response[0].pendingReview;
+        $scope.currentData.docTitle = response.data[done].title;
+        $scope.currentData.owner = response.data[done].owner;
+        $('#docLink').attr("href", "https://kb.wisc.edu/kbAdmin/document.php?id=" + response.data[done].docId).attr('target','_blank');
+        $scope.currentData.docId = response.data[done].docId;
+        $scope.formData.docId = response.data[done].docId;
+        $scope.formData.owner = response.data[done].owner;
+        $scope.formData.commentsTopic = response.data[done].comments.topics;
+        $scope.formData.commentsOwner = response.data[done].comments.ownership;
     }
 

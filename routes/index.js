@@ -93,9 +93,9 @@ router.post('/write', function(req, res, next){
                 }
         }, function(err, result){
             if(err) throw err;
+            res.sendStatus(200);
             console.log(result);
         });
-    getNextDoc(res);
     });
 });
 
@@ -155,6 +155,16 @@ router.post('/addGroup', function(req, res){
             res.sendStatus(200);
         });
     })
+});
+
+router.get('/todoDocs', function(req, res){
+    MongoClient.connect(url, function(err, db){
+        assert.equal(null, err);
+        db.collection('review').find( {"login" : null}).sort({"title": 1}).toArray(function(err, data){
+            if (err) console.log(err);
+            res.send(data);
+        });
+    });
 });
 
 /*

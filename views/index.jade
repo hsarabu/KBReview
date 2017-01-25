@@ -12,18 +12,23 @@ block content
                 h1 KB Review Process
                 h2 There are currently {{currentData.pendingReview}} docs pending review.
             .row(style='font-family:muli')
-                .col-md-6()
+                .col-md-6
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important;" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
                             h3 Doc Title :
-                                a(id='docLink') {{currentData.docTitle}}
+                                //a(id='docLink') {{currentData.docTitle}}
                             //h3 Doc Link : #[a(ng-href={{currentData.docURL}} target="_blank") {{currentData.docId}}]
                             h3 Current Owner : {{currentData.owner}}
                 .col-md-6
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
+                            
                             div( layout='column' ng-cloak class='md-inline-form' id='formDiv')
                                 md-content(layout-padding)
+                                    h3 Doc Title :
+                                        a(id='docLink')  {{currentData.docTitle}}
+                                    //h3 Doc Link : #[a(ng-href={{currentData.docURL}} target="_blank") {{currentData.docId}}]
+                                    h3 Current Owner : {{currentData.owner}}
                                     div(style='padding-left: 0px; width: 100% !important')
                                         form(ng-submit='processForm(ctrl.searchText)' name='contactForm')
                                             div(layout-gt-xs='row')
