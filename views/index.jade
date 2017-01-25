@@ -12,12 +12,18 @@ block content
                 h1 KB Review Process
             .row(style='font-family:muli')
                 .col-md-6
-                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important;" ng-cloak)
+                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 600px" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
-                            h3 Doc Title :
-                                //a(id='docLink') {{currentData.docTitle}}
-                            //h3 Doc Link : #[a(ng-href={{currentData.docURL}} target="_blank") {{currentData.docId}}]
-                            h3 Current Owner : {{currentData.owner}}
+                            md-toolbar(md-scroll-shrink ng-if='true')
+                                div.md-toolbar-tools
+                                    h3 Untouched Docs
+                            md-content(style='height:480px')
+                                md-list
+                                    md-list-item.md-3-line(ng-repeat="doc in todoDoc")
+                                        div.md-list-item-text
+                                            h3 {{doc.title}}
+                                            h4 {{doc.group}}
+                                            h4 {{doc.id}}
                 .col-md-6
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')

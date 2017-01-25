@@ -13,6 +13,7 @@ var todoDocs;
         var self = this;
         $scope.formData = {};
         $scope.currentData = {};
+        $scope.todoDoc = [];
 
         $scope.processForm = function(selectedItem){
             //save the selected item before wiping it
@@ -33,6 +34,7 @@ var todoDocs;
                     .position('top right')
                     .hideDelay(3000)
                 );
+                $scope.todoDoc.shift();
                 writeData(todoDocs, $scope);
                 selectedItem = null;
 
@@ -42,7 +44,8 @@ var todoDocs;
 
         $scope.$watch('$viewContentLoaded', function() {
             $http.get('/todoDocs').then(function(response){
-                todoDocs = response; 
+                todoDocs = response;
+                generateListTodo($scope, todoDocs); 
                 writeData(response, $scope);
             });
             
@@ -94,17 +97,26 @@ var todoDocs;
     };
 })();
 
-    function writeData(response, $scope){
-        var done = 0; //lazy, I don't want to change the rest of the code
-        $scope.formData = {};
-        //$scope.currentData.pendingReview = response[0].pendingReview;
-        $scope.currentData.docTitle = response.data[done].title;
-        $scope.currentData.owner = response.data[done].owner;
-        $('#docLink').attr("href", "https://kb.wisc.edu/kbAdmin/document.php?id=" + response.data[done].docId).attr('target','_blank');
-        $scope.currentData.docId = response.data[done].docId;
-        $scope.formData.docId = response.data[done].docId;
-        $scope.formData.owner = response.data[done].owner;
-        $scope.formData.commentsTopic = response.data[done].comments.topics;
-        $scope.formData.commentsOwner = response.data[done].comments.ownership;
-    }
+function writeData(response, $scope){
+    var done = 0; //lazy, I don't want to change the rest of the code
+    $scope.formData = {};
+    //$scope.currentData.pendingReview = response[0].pendingReview;
+    $scope.currentData.docTitle = response.data[done].title;
+    $scope.currentData.owner = response.data[done].owner;
+    $('#docLink').attr("href", "https://kb.wisc.edu/kbAdmin/document.php?id=" + response.data[done].docId).attr('target','_blank');
+    $scope.currentData.docId = response.data[done].docId;
+    $scope.formData.docId = response.data[done].docId;
+    $scope.formData.owner = response.data[done].owner;
+    $scope.formData.commentsTopic = response.data[done].comments.topics;
+    $scope.formData.commentsOwner = response.data[done].comments.ownership;
+}
 
+function generateListTodo($scope, todoDocs){
+    for( var i = 0; i < todoDocs.data.length; i++){
+        $scope.todoDoc.push({
+            title: todoDocs.data[i].title,
+            group: todoDocs.data[i].group,
+            id: todoDocs.data[i].docId
+        });
+    }
+}
