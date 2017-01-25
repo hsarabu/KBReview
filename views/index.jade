@@ -6,24 +6,38 @@ block content
     script(src='/javascripts/main.js')
     link(rel='stylesheet' href='/stylesheets/style.css')
 
-    div
-        .container-fluid(ng-controller='formController as ctrl' ng-cloak)
-            .row.text-center
-                h1 KB Review Process
+    div(ng-controller='formController as ctrl' ng-cloak)
+        md-content
+            md-toolbar
+                div.md-toolbar-tools
+                    md-button(class='md-toolbar-tools' aria-label="settings" style="width: 82px;padding-right: 0px;padding-left: 16px;margin-left: -32px;" ng-click='toggle()')
+                        md-icon(md-svg-icon='images/menu.svg')
+                    h3 KB Review Project
+        .container-fluid(style='padding-top:16px')
+            md-sidenav(class="md-sidenav-left" md-component-id="left_panel" md-whiteframe="4")
+                md-toolbar.md-theme-indigo
+                    h1.md-toolbar-tools KB Review Project
+                //md-content(layout-margin)
+                ul.nav
+                    li #[md-icon.navIcon(md-svg-icon='images/menuHome.svg')]   Home
+                    li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
+                    li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
+                        
+
             .row(style='font-family:muli')
                 .col-md-6
-                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 600px" ng-cloak)
-                        div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
-                            md-toolbar(md-scroll-shrink ng-if='true')
+                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 75%" ng-cloak)
+                        div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%; height: 75%; padding: 0 0 8px 0 !important')
+                            md-toolbar
                                 div.md-toolbar-tools
                                     h3 Untouched Docs
                             md-content(style='height:480px')
-                                md-list
+                                md-list(flex)
                                     md-list-item.md-3-line(ng-repeat="doc in todoDoc")
                                         div.md-list-item-text
                                             h3 {{doc.title}}
                                             h4 {{doc.group}}
-                                            h4 {{doc.id}}
+                                            p {{doc.id}}
                 .col-md-6
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
@@ -54,5 +68,9 @@ block content
 
                                             //submit the form on click
                                             div(class='center-block form-group' class='login')
-                                                md-button(type='submit' class='md-raised' id='btn' style='padding-left: 0px; margin-left: 0px') submit
+                                                md-button(type='submit' class='md-raised submitButton' id='btn' style='padding-left: 0px; margin-left: 0px') submit
+                    div.row(layout-padding layout-wrap layout-fill ng-cloak style="padding-bottom: 32px;")
+                        div(md-whiteframe class='md-whiteframe-5dp')
+                            md-content
+                                h3 We have {{docsLeft}} docs left
 

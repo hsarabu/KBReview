@@ -7,13 +7,20 @@ var todoDocs;
     .module('formApp', ['ngMaterial', 'ngMessages'])
     .controller('formController',formController);
     
-    function formController($scope, $http, $timeout, $q, $log, $mdToast){
+    function formController($scope, $http, $timeout, $q, $log, $mdToast, $mdSidenav){
         var allGroups;
         var allOwners;
         var self = this;
         $scope.formData = {};
         $scope.currentData = {};
         $scope.todoDoc = [];
+        $scope.toggle = toggle();
+
+        function toggle(){
+            return function(){
+                $mdSidenav("left_panel").toggle();
+            }
+        }
 
         $scope.processForm = function(selectedItem){
             //save the selected item before wiping it
@@ -37,6 +44,7 @@ var todoDocs;
                 $scope.todoDoc.shift();
                 writeData(todoDocs, $scope);
                 selectedItem = null;
+                $scope.docsLeft--;
 
             });
         
@@ -45,6 +53,7 @@ var todoDocs;
         $scope.$watch('$viewContentLoaded', function() {
             $http.get('/todoDocs').then(function(response){
                 todoDocs = response;
+                $scope.docsLeft = todoDocs.data.length;
                 generateListTodo($scope, todoDocs); 
                 writeData(response, $scope);
             });
@@ -112,11 +121,19 @@ function writeData(response, $scope){
 }
 
 function generateListTodo($scope, todoDocs){
-    for( var i = 0; i < todoDocs.data.length; i++){
+    //only generates next floor(100 || #of docs left) to greatly decrease loading times
+    for( var i = 0; i < less(); i++){
         $scope.todoDoc.push({
             title: todoDocs.data[i].title,
             group: todoDocs.data[i].group,
             id: todoDocs.data[i].docId
         });
     }
+}
+
+//function returns 100 or docs.data.length, whichever is less 
+
+function less(){
+    if(todoDocs.data.length <= 100) return docs.data.length;
+    else return 100;
 }
