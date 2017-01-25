@@ -4,10 +4,6 @@ everything {
 a {
   color: #00B7FF;
 }
-body {
-  font-family: 'Playfair Display', 'sans-serif';
-}
-
 toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
   color: white; }
 

@@ -10,7 +10,6 @@ block content
         .container-fluid(ng-controller='formController as ctrl' ng-cloak)
             .row.text-center
                 h1 KB Review Process
-                h2 There are currently {{currentData.pendingReview}} docs pending review.
             .row(style='font-family:muli')
                 .col-md-6
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important;" ng-cloak)
@@ -37,18 +36,6 @@ block content
                                                         span(md-highlight-text="ctrl.searchText" md-highlight-flags="^i") {{item.display}}
                                                     md-not-found 
                                                        p No groups matching "{{ctrl.searchText}}" were found. Click outside the box and finish the form to use it
-                                                       //#[a(ng-click="ctrl.addGroup(ctrl.searchText)") Create it]
-                                                       //a(ng-click="ctrl.addGroup(ctrl.searchText)") Create one!
-
-                                            //div(layout-gt-xs='row')
-                                                md-input-container(class='md-block')
-                                                    label Desired Owner
-                                                    input(ng-model='formData.owner')
-                                            //div(layout-get-xs='row')
-                                                md-autocomplete(md-selected-item="ctrl.selectedItemOwner" md-search-text="ctrl.searchTextOwner" md-items="owner in ctrl.queryOwners(ctrl.searchTextOwner)" md-item-text="owner.display" md-min-length="0" placeholder="Enter Owner" style='width: 100%')
-                                                    md-item-template
-                                                        span(md-highlight-text="ctrl.searchTextOwner" md-highlight-flags="^i") {{owner.display}}
-
                                             div(layout-gt-xs='row')
                                                 md-input-container(class='md-block')
                                                     label Topic Comments

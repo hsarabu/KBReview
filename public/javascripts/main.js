@@ -7,7 +7,7 @@ var todoDocs;
     .module('formApp', ['ngMaterial', 'ngMessages'])
     .controller('formController',formController);
     
-    function formController($scope, $http, $timeout, $q, $log){
+    function formController($scope, $http, $timeout, $q, $log, $mdToast){
         var allGroups;
         var allOwners;
         var self = this;
@@ -26,6 +26,13 @@ var todoDocs;
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function(){
                 todoDocs.data.shift();
+                $mdToast.show(
+                    $mdToast
+                    .simple()
+                    .textContent('Success!')
+                    .position('top right')
+                    .hideDelay(3000)
+                );
                 writeData(todoDocs, $scope);
                 selectedItem = null;
 

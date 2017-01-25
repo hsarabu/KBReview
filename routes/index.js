@@ -19,6 +19,10 @@ router.get('/', function(req, res, next) {
     }
 });
 
+/**
+ * Method is no longer used. We now send almost all of the information straight to the client since its not very much data
+ */
+
 function getNextDoc(res, callback){
     MongoClient.connect(url, function(err, db){
         assert.equal(null, err);
@@ -66,6 +70,9 @@ function getNextDoc(res, callback){
     });
 }
 
+/**
+ * Method is no longer used, we now pull most of the data in the inital load and only write to the database in subsequent server client connections
+ */
 router.get('/get', function(req, res, next){
     getNextDoc(res);
 });
@@ -112,18 +119,9 @@ router.post('/login', function(req, res, next){
 
 });
 
-/*router.post('/getOwners', function(req, res){
-    var group = req.body.group;
-
-    MongoClient.connect(url, function(err, db){
-        assert.equal(null, err);
-        db.collection('owners').find({"group" : group}).toArray(function(err, data){
-            res.send(data);
-        });
-        //res.send(ownersInGroup);
-        //console.log(ownersInGroup);
-    });
-});*/
+/**
+ * Method is no longer used, owners are not relevant currently
+ */
 
 router.get('/getOwners', function(req, res){
 
@@ -146,6 +144,10 @@ router.get('/groups', function(req, res){
     });
 });
 
+/**
+ * Method is not currently used, we have scrapped all of the groups
+ */
+
 router.post('/addGroup', function(req, res){
     var group = req.body.group;
 
@@ -167,29 +169,6 @@ router.get('/todoDocs', function(req, res){
     });
 });
 
-/*
-router.get('/groups', function(req, res, next){
-    var groups = [];
-    MongoClient.connect(url, function(err, db){
-        assert.equal(null, err);
-        var cursor = db.collection('owners').find()
-        /*
-        cursor.forEach(function(item){
-            group = item.group;
-            groups.push(group)
-        }, function(err){
-            db.close();
-            throw err;
-        });
-        
-        cursor.toArray(function(allGroups){
-            res.send(allGroups);
-        })
-
-    });
-
-});
-*/
 
 /*
 Date is given in Hourminutessecondsdaymonth
