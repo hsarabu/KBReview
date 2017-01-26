@@ -19,9 +19,12 @@ block content
                     h1.md-toolbar-tools KB Review Project
                 //md-content(layout-margin)
                 ul.nav
-                    li #[md-icon.navIcon(md-svg-icon='images/menuHome.svg')]   Home
-                    li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
-                    li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
+                    a(href='/')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuHome.svg')]   Home
+                    a(href='/stats')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
+                    a(href='/FAQ')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
                         
 
             .row(style='font-family:muli')

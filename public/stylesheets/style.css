@@ -30,8 +30,15 @@ md-list-item :focus {
   font-size: 1.4em;
 }
 
+.nav a li {
+  text-decoration: none;
+  color: black;
+}
+
+
 .nav :hover {
   background-color: #d3d3d3;
+  text-decoration: none !important;
 }
 
 .navDiv {
