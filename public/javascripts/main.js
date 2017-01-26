@@ -15,6 +15,7 @@ var todoDocs;
         $scope.currentData = {};
         $scope.todoDoc = [];
         $scope.toggle = toggle();
+        
 
         function toggle(){
             return function(){
@@ -42,7 +43,7 @@ var todoDocs;
                     .hideDelay(3000)
                 );
                 $scope.todoDoc.shift();
-                writeData(todoDocs, $scope);
+                writeData(0, todoDocs, $scope);
                 selectedItem = null;
                 $scope.docsLeft--;
 
@@ -55,7 +56,7 @@ var todoDocs;
                 todoDocs = response;
                 $scope.docsLeft = todoDocs.data.length;
                 generateListTodo($scope, todoDocs); 
-                writeData(response, $scope);
+                writeData(0,response, $scope);
             });
             
         });
@@ -103,11 +104,15 @@ var todoDocs;
 
         }
 
+        $scope.changeDoc = function(index){
+            writeData(index, todoDocs, $scope);
+        }
+
     };
 })();
 
-function writeData(response, $scope){
-    var done = 0; //lazy, I don't want to change the rest of the code
+function writeData(done, response, $scope){
+    //var done = 0; //lazy, I don't want to change the rest of the code
     $scope.formData = {};
     //$scope.currentData.pendingReview = response[0].pendingReview;
     $scope.currentData.docTitle = response.data[done].title;
@@ -126,7 +131,8 @@ function generateListTodo($scope, todoDocs){
         $scope.todoDoc.push({
             title: todoDocs.data[i].title,
             group: todoDocs.data[i].group,
-            id: todoDocs.data[i].docId
+            id: todoDocs.data[i].docId,
+            index: i
         });
     }
 }

@@ -21,6 +21,10 @@ md-list-item {
   border-bottom: .5px #d3d3d3 solid;
 }
 
+md-list-item :focus {
+  outline: none;
+}
+
 .nav li {
   padding: 4px 8px 4px 16px; 
   font-size: 1.4em;

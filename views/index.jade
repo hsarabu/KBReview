@@ -34,7 +34,7 @@ block content
                             md-content(style='height:480px')
                                 md-list(flex)
                                     md-list-item.md-3-line(ng-repeat="doc in todoDoc")
-                                        div.md-list-item-text
+                                        div.md-list-item-text(ng-click="changeDoc(doc.index)")
                                             h3 {{doc.title}}
                                             h4 {{doc.group}}
                                             p {{doc.id}}
