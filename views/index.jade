@@ -12,7 +12,7 @@ block content
                 div.md-toolbar-tools
                     md-button(class='md-toolbar-tools' aria-label="settings" style="width: 82px;padding-right: 0px;padding-left: 16px;margin-left: -32px;" ng-click='toggle()')
                         md-icon(md-svg-icon='images/menu.svg')
-                    h3 KB Review Project
+                    h3 KB Review Project - Home
         .container-fluid(style='padding-top:16px')
             md-sidenav(class="md-sidenav-left" md-component-id="left_panel" md-whiteframe="4")
                 md-toolbar.md-theme-indigo
@@ -25,6 +25,9 @@ block content
                         li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
                     a(href='/FAQ')
                         li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
+                    a(href='/audit')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuAuditData.svg')]   View Data
+
                         
 
             .row(style='font-family:muli')
@@ -54,7 +57,7 @@ block content
                                     div(style='padding-left: 0px; width: 100% !important')
                                         form(ng-submit='processForm(ctrl.searchText)' name='contactForm')
                                             div(layout-gt-xs='row')
-                                                md-autocomplete(md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Enter Group" style='width: 100%')
+                                                md-autocomplete(md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Enter Group" style='width: 100%' required)
                                                     md-item-template 
                                                         span(md-highlight-text="ctrl.searchText" md-highlight-flags="^i") {{item.display}}
                                                     md-not-found 
@@ -67,7 +70,10 @@ block content
                                                 md-input-container(class='md-block')
                                                     label Ownership Comments
                                                     input(type='text' ng-model='formData.commentsOwnership')
-
+                                            div(layout-gt-xs='row')
+                                                md-list-item(style='width: 100%') 
+                                                    p Flag for further review?
+                                                    md-checkbox(class='md-secondary' ng-model='formData.important' ng-click="changeColor()")
 
                                             //submit the form on click
                                             div(class='center-block form-group' class='login')

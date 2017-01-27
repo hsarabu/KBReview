@@ -108,6 +108,18 @@ var todoDocs;
             writeData(index, todoDocs, $scope);
         }
 
+        $scope.changeColor = function(){
+            if($scope.formData.important) $("#btn").addClass('md-warn')
+            else {
+                try {
+                    $("#btn").removeClass('md-warn');
+                }
+                finally {
+                    console.log('gotta do something');
+                }
+            }
+        }
+
     };
 })();
 

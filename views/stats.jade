@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    script(src="/javascripts/stats.js")
+    link(rel="stylesheet" href="/stylesheets/style.css")
+
+    div(ng-controller='formController as ctrl' ngc-cloak)
+        md-content
+            md-toolbar
+                div.md-toolbar-tools
+                    md-button(class='md-toolbar-tools' aria-label="settings" style="width: 82px;padding-right: 0px;padding-left: 16px;margin-left: -32px;" ng-click='toggle()')
+                        md-icon(md-svg-icon='images/menu.svg')
+                    h3 KB Review Project - Statistics
+        .container-fluid(style='padding-top:16px')
+            md-sidenav(class="md-sidenav-left" md-component-id="left_panel" md-whiteframe="4")
+                md-toolbar.md-theme-indigo
+                    h1.md-toolbar-tools KB Review Project
+                //md-content(layout-margin)
+                ul.nav
+                    a(href='/')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuHome.svg')]   Home
+                    a(href='/stats')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
+                    a(href='/FAQ')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
+                    a(href='/audit')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuAuditData.svg')]   View Data

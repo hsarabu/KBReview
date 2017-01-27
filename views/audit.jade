@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    script(src="/javascripts/audit.js")
+    link(rel="stylesheet" href="/stylesheets/style.css")
+
+    div(ng-controller='formController as ctrl' ngc-cloak)
+        md-content
+            md-toolbar
+                div.md-toolbar-tools
+                    md-button(class='md-toolbar-tools' aria-label="settings" style="width: 82px;padding-right: 0px;padding-left: 16px;margin-left: -32px;" ng-click='toggle()')
+                        md-icon(md-svg-icon='images/menu.svg')
+                    h3 KB Review Project - View Data
+        .container-fluid(style='padding-top:16px')
+            md-sidenav(class="md-sidenav-left" md-component-id="left_panel" md-whiteframe="4")
+                md-toolbar.md-theme-indigo
+                    h1.md-toolbar-tools KB Review Project
+                //md-content(layout-margin)
+                ul.nav
+                    a(href='/')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuHome.svg')]   Home
+                    a(href='/stats')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuChart.svg')]   Statistics
+                    a(href='/FAQ')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuFAQ.svg')]   FAQ
+                    a(href='/audit')
+                        li #[md-icon.navIcon(md-svg-icon='images/menuAuditData.svg')]   View Data
+            .row(style='font-family:muli')
+                .col-md-6
+                    div.row(layout-padding layout-wrap layout-fill ng-cloak style='padding-bottom: 32px')
+                            div(md-whiteframe class='md-whiteframe-5dp')
+                                md-content
+                                    h3 We have completed {{docsDone}} docs
+                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 75%" ng-cloak)
+                        div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%; height: 75%; padding: 0 0 8px 0 !important')
+                            md-toolbar
+                                div.md-toolbar-tools
+                                    h3 Finished Docs
+                            md-content(style='height:480px')
+                                md-list(flex)
+                                    md-list-item.md-3-line(ng-repeat="doc in doneDocs")
+                                        div.md-list-item-text(ng-click="changeDoc(doc.index)")
+                                            h3 {{doc.title}}
+                                            h4 {{doc.group}} --> {{doc.suggestedGroup}}
+                                            p {{doc.id}}
+                                            p {{doc.login}}
+                                            p Topic Comments: {{doc.topicComments}}
+                    

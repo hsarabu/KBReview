@@ -19,6 +19,34 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/audit', function(req, res, next){
+    if(req.cookies.login){
+        res.render('audit');
+    }
+    else{
+        res.render('home');
+    }
+});
+
+router.get('/FAQ', function(req, res, next){
+    if(req.cookies.login){
+        res.render('FAQ');
+    }
+    else{
+        res.render('home');
+    }
+});
+
+router.get('/stats', function(req, res, next){
+    if(req.cookies.login){
+        res.render('stats');
+    }
+    else{
+        res.render('home');
+    }
+})
+
+
 /**
  * Method is no longer used. We now send almost all of the information straight to the client since its not very much data
  */
@@ -96,7 +124,8 @@ router.post('/write', function(req, res, next){
                         "ownership" : req.body.commentsOwnership
                     },
                     "login" : req.cookies.login,
-                    "stamp" : getTime()
+                    "stamp" : getTime(),
+                    "important" : req.body.important
                 }
         }, function(err, result){
             if(err) throw err;
@@ -169,6 +198,15 @@ router.get('/todoDocs', function(req, res){
     });
 });
 
+router.get('/doneDocs', function(req, res){
+    MongoClient.connect(url, function(err, db){
+        assert.equal(null, err);
+        db.collection('review').find( {"login" : {$ne :null}}).sort({"title" : 1}).toArray(function(err, data){
+            if (err) console.log(err);
+            res.send(data);
+        })
+    })
+})
 
 /*
 Date is given in Hourminutessecondsdaymonth
