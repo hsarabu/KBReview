@@ -201,7 +201,27 @@ router.get('/todoDocs', function(req, res){
 router.get('/doneDocs', function(req, res){
     MongoClient.connect(url, function(err, db){
         assert.equal(null, err);
-        db.collection('review').find( {"login" : {$ne :null}}).sort({"title" : 1}).toArray(function(err, data){
+        db.collection('review').find( {
+            $and : 
+            [{"login" : {$ne :null}},
+             {"important" : false}]
+            })
+            .sort({"title" : 1}).toArray(function(err, data){
+            if (err) console.log(err);
+            res.send(data);
+        })
+    })
+})
+
+router.get('/flaggedDocs', function(req, res){
+    MongoClient.connect(url, function(err, db){
+        assert.equal(null, err);
+        db.collection('review').find( {
+            $and : 
+            [{"login" : {$ne :null}},
+             {"important" : true}]
+            })
+            .sort({"title" : 1}).toArray(function(err, data){
             if (err) console.log(err);
             res.send(data);
         })

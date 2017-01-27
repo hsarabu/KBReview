@@ -55,7 +55,7 @@ block content
                                     //h3 Doc Link : #[a(ng-href={{currentData.docURL}} target="_blank") {{currentData.docId}}]
                                     h3 Current Owner : {{currentData.owner}}
                                     div(style='padding-left: 0px; width: 100% !important')
-                                        form(ng-submit='processForm(ctrl.searchText)' name='contactForm')
+                                        form(ng-submit='processForm(ctrl.selectedItem, ctrl.searchText)' name='contactForm')
                                             div(layout-gt-xs='row')
                                                 md-autocomplete(md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Enter Group" style='width: 100%' required)
                                                     md-item-template 

@@ -1,6 +1,7 @@
 //create the angular module
 //ngMaterial is a dependancy that handles input design
 var doneDocs;
+var flaggedDocs;
 (function(){
     'use strict';
     angular
@@ -28,7 +29,23 @@ var doneDocs;
                 doneDocs = response;
                 $scope.docsDone = doneDocs.data.length;
                 generateListTodo($scope, doneDocs); 
-            });           
+            });  
+
+            $http.get('/flaggedDocs').then(function(response){
+                flaggedDocs = response;
+                $scope.numberFlagged = flaggedDocs.data.length;
+                for(var i = 0; i < flaggedDocs.data.length; i++){
+                    $scope.flaggedDocs.push({
+                        title: flaggedDocs.data[i].title,
+                        group: flaggedDocs.data[i].group,
+                        id: flaggedDocs.data[i].docId,
+                        login: todoDocs.data[i].login,
+                        suggestedGroup: flaggedDocs.data[i].suggestedGroup,
+                        topicComments: flaggedDocs.data[i].comments.topics,
+                        index: i
+                    });
+                }
+            })         
         });
     
 

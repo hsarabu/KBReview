@@ -38,6 +38,20 @@ block content
                                     h3 Finished Docs
                             md-content(style='height:480px')
                                 md-list(flex)
+                                    md-list-item.md-3-line(ng-repeat="flag in flaggedDocs")
+                                        div.md-list-item-text(ng-click="changeDoc(flag.index)")
+                                            h3 {{flag.title}}
+                                            h4 {{flag.group}} --> {{flag.suggestedGroup}}
+                                            p {{flag.id}}
+                                            p {{flag.login}}
+                                            p Topic Comments: {{flag.topicComments}}
+                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 75%" ng-cloak)
+                        div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%; height: 75%; padding: 0 0 8px 0 !important')
+                            md-toolbar
+                                div.md-toolbar-tools
+                                    h3 Finished Docs
+                            md-content(style='height:480px')
+                                md-list(flex)
                                     md-list-item.md-3-line(ng-repeat="doc in doneDocs")
                                         div.md-list-item-text(ng-click="changeDoc(doc.index)")
                                             h3 {{doc.title}}

@@ -24,8 +24,10 @@ var todoDocs;
         }
 
         $scope.processForm = function(selectedItem){
+            
             //save the selected item before wiping it
             $scope.formData.group = selectedItem['display'];
+            console.log($scope.formData.group);
             self.selectedItem = null;
             self.searchText = "";
             $http({
