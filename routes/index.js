@@ -5,7 +5,8 @@ var assert = require('assert');
 var ObjectID = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/kb';
 var cookieParser = require('cookie-parser');
-var Promise = require('bluebird')
+var Promise = require('bluebird');
+
 
 router.use(cookieParser());
 
@@ -137,7 +138,7 @@ router.post('/write', function(req, res, next){
 
 router.post('/login', function(req, res, next){
 
-    if('supp0rt'.valueOf() == req.body.password.valueOf()){
+    if('PASSWORD'.valueOf() == req.body.password.valueOf()){
         login = req.body.login;
         res.cookie('login', login);
         res.send();
@@ -226,7 +227,7 @@ router.get('/flaggedDocs', function(req, res){
             res.send(data);
         })
     })
-})
+});
 
 /*
 Date is given in Hourminutessecondsdaymonth
