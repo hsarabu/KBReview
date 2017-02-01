@@ -26,16 +26,19 @@ block content
                     a(href='/audit')
                         li #[md-icon.navIcon(md-svg-icon='images/menuAuditData.svg')]   View Data
             .row(style='font-family:muli')
+                div.row(layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 75%" ng-cloak)
+                    div(md-whiteframe class='md-whiteframe-5dp' style='padding 0 0 8px !important')
+                        h3 How do I use this?
+                        p If you want to update one of the items, simply click on it and fill in the box to the right. You'll have to enter the group information manually.
+                        p If its a flagged doc and want to keep it flagged, hit the checkbox. If its not currently flagged, you'll need to submit with the checkbox checked and it'll show up in the flagged doc list
+                        
+                            
                 .col-md-6
-                    div.row(layout-padding layout-wrap layout-fill ng-cloak style='padding-bottom: 32px')
-                            div(md-whiteframe class='md-whiteframe-5dp')
-                                md-content
-                                    h3 We have completed {{docsDone}} docs
                     div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important; height: 75%" ng-cloak)
                         div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%; height: 75%; padding: 0 0 8px 0 !important')
-                            md-toolbar
+                            md-toolbar.md-warn
                                 div.md-toolbar-tools
-                                    h3 Finished Docs
+                                    h3 Flagged Docs
                             md-content(style='height:480px')
                                 md-list(flex)
                                     md-list-item.md-3-line(ng-repeat="flag in flaggedDocs")
@@ -59,4 +62,38 @@ block content
                                             p {{doc.id}}
                                             p {{doc.login}}
                                             p Topic Comments: {{doc.topicComments}}
+                .col-md-6
+                    div(layout="row" layout-padding layout-wrap layout-fill style="padding-bottom: 32px; width: 100% !important" ng-cloak)
+                        div(md-whiteframe class="md-whiteframe-5dp" style='width: 100%')
+                            
+                            div( layout='column' ng-cloak class='md-inline-form' id='formDiv')
+                                md-content(layout-padding)
+                                    h3 Doc Title :
+                                        a(id='docLink')  {{currentData.docTitle}}
+                                    //h3 Doc Link : #[a(ng-href={{currentData.docURL}} target="_blank") {{currentData.docId}}]
+                                    h3 Current Owner : {{currentData.owner}}
+                                    div(style='padding-left: 0px; width: 100% !important')
+                                        form(ng-submit='processForm(ctrl.selectedItem, ctrl.searchText)' name='contactForm')
+                                            div(layout-gt-xs='row')
+                                                md-autocomplete(md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Enter Group" style='width: 100%' required)
+                                                    md-item-template 
+                                                        span(md-highlight-text="ctrl.searchText" md-highlight-flags="^i") {{item.display}}
+                                                    md-not-found 
+                                                       p No groups matching "{{ctrl.searchText}}" were found. Click outside the box and finish the form to use it
+                                            div(layout-gt-xs='row')
+                                                md-input-container(class='md-block')
+                                                    label Topic Comments
+                                                    input(type='text' ng-model='formData.commentsTopic' )
+                                            div(layout-gt-xs='row')
+                                                md-input-container(class='md-block')
+                                                    label Ownership Comments
+                                                    input(type='text' ng-model='formData.commentsOwnership')
+                                            div(layout-gt-xs='row')
+                                                md-list-item(style='width: 100%') 
+                                                    p Flag for further review?
+                                                    md-checkbox(class='md-secondary' ng-model='formData.important' ng-click="changeColor()")
+
+                                            //submit the form on click
+                                            div(class='center-block form-group' class='login')
+                                                md-button(type='submit' class='md-raised submitButton' id='btn' style='padding-left: 0px; margin-left: 0px') submit
                     
