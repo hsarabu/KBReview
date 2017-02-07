@@ -17,3 +17,14 @@
         
     };
 })();
+
+//chart functions start here
+
+var ctx = $("#piChart");
+var piChart = new piChart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Completed', 'Flagged', 'Untouched'],
+        
+    }
+})
