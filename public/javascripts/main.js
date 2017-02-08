@@ -24,10 +24,13 @@ var todoDocs;
         }
 
         $scope.processForm = function(selectedItem){
-            
-            //save the selected item before wiping it
-            $scope.formData.group = selectedItem['display'];
-            console.log($scope.formData.group);
+            if($scope.formData.keepSame){
+                $scope.formData.group = "DoIT Help Desk"
+            }
+            else {
+                $scope.formData.group = selectedItem['display'];
+
+            }
             self.selectedItem = null;
             self.searchText = "";
             $http({
@@ -92,6 +95,7 @@ var todoDocs;
                         };
                     });
             });
+            
         }
 
         /**
@@ -121,7 +125,17 @@ var todoDocs;
                 }
             }
         }
+        $scope.toggleSame = function(){
 
+                if($scope.formData.keepSame){
+                    $('#input-0').prop("required", false);
+                }
+                else{
+                    $('#autocomplete').addAttr("required");
+
+                }
+            }
+            
     };
 })();
 
