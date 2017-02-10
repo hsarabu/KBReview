@@ -138,7 +138,7 @@ router.post('/write', function(req, res, next){
 
 router.post('/login', function(req, res, next){
 
-    if('PASSWORD'.valueOf() == req.body.password.valueOf()){
+    if(''.valueOf() == req.body.password.valueOf()){
         login = req.body.login;
         res.cookie('login', login);
         res.send();
@@ -202,31 +202,21 @@ router.get('/todoDocs', function(req, res){
 router.get('/doneDocs', function(req, res){
     MongoClient.connect(url, function(err, db){
         assert.equal(null, err);
-        db.collection('review').find( {
-            $and : 
-            [{"login" : {$ne :null}},
-             {"important" : false}]
-            })
+        db.collection('review').find({"login" : {$ne :null}})
             .sort({"title" : 1}).toArray(function(err, data){
-            if (err) console.log(err);
-            res.send(data);
-        })
-    })
-})
+                if (err) console.log(err);
+                res.send(data);
+        });
+    });
+});
 
-router.get('/flaggedDocs', function(req, res){
+router.get('/getEverything', function(req, res){
     MongoClient.connect(url, function(err, db){
-        assert.equal(null, err);
-        db.collection('review').find( {
-            $and : 
-            [{"login" : {$ne :null}},
-             {"important" : true}]
-            })
-            .sort({"title" : 1}).toArray(function(err, data){
+        db.collection('review').find().sort({"title": 1}).toArray(function(err, db){
             if (err) console.log(err);
-            res.send(data);
-        })
-    })
+            res.send(db);
+        });
+    });
 });
 
 /*
