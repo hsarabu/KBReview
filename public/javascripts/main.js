@@ -15,6 +15,7 @@ var todoDocs;
         $scope.currentData = {};
         $scope.todoDoc = [];
         $scope.toggle = toggle();
+        $scope.currentDoc = 0;//defines the index of the current document based on todoDoc
         
 
         function toggle(){
@@ -39,7 +40,7 @@ var todoDocs;
                 data: $.param($scope.formData),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(function(){
-                todoDocs.data.shift();
+                todoDocs.data.splice($scope.currentDoc, 1);
                 $mdToast.show(
                     $mdToast
                     .simple()
@@ -47,7 +48,8 @@ var todoDocs;
                     .position('top right')
                     .hideDelay(3000)
                 );
-                $scope.todoDoc.shift();
+                //removes the finished doc from the Todo list
+                $scope.todoDoc.splice($scope.currentDoc, 1);
                 writeData(0, todoDocs, $scope);
                 selectedItem = null;
                 $scope.docsLeft--;
@@ -112,6 +114,7 @@ var todoDocs;
 
         $scope.changeDoc = function(index){
             writeData(index, todoDocs, $scope);
+            $scope.currentDoc = index;
         }
 
         $scope.changeColor = function(){

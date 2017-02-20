@@ -117,7 +117,8 @@ router.post('/write', function(req, res, next){
     console.log(req.body);
     MongoClient.connect(url, function(err, db){
         assert.equal(null, err);
-        db.collection('review').findOneAndUpdate({docId: parseInt(req.body.docId)},
+        db.collection('review').findOneAndUpdate(
+            {docId: parseInt(req.body.docId)},
             {$set:
                 { "suggestedGroup": req.body.group,
                     "comments": {
@@ -128,10 +129,11 @@ router.post('/write', function(req, res, next){
                     "stamp" : getTime(),
                     "important" : req.body.important
                 }
-        }, function(err, result){
-            if(err) throw err;
-            res.sendStatus(200);
-            console.log(result);
+            }, 
+            function(err, result){
+                if(err) throw err;
+                res.sendStatus(200);
+                console.log(result);
         });
     });
 });
