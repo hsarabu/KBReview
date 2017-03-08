@@ -14,17 +14,53 @@
             }
         }
 
+        $scope.$watch('$viewContentLoaded', function(){
+            $http.get('/chartData').then(function(response){
+                console.log(response.data[0]);
+            })
+        });
         
     };
 })();
 
-//chart functions start here
 
-var ctx = $("#piChart");
-var piChart = new piChart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Completed', 'Flagged', 'Untouched'],
-        
+function generatePi(flagged, allReviewed, todo){
+    reviewed = allReviewed - flagged; //generate number for the entire review
+    var piContext = 'piChart';
+    var piData = {
+            labels: [
+                "Reviewed",
+                "Flagged",
+                "Todo"
+            ],
+            datasets : [
+                {
+                    data : [
+                        reviewed,
+                        flagged,
+                        todo
+                    ],
+                    backgroundColor : [
+                        "#4CAF50",
+                        "#E53935",
+                        "#1E88E5"
+                    ],
+                    hoverBackgroundColor : [
+                        "#4CAF50",
+                        "#E53935",
+                        "#1E88E5"
+                    ]
+                }
+            ],
+
     }
-})
+    var piChart = new Chart(piContext, {
+        type: "pie",
+        data, piData,
+        options: {
+            animation:{
+                animateScale:true
+            }
+        }
+    })
+}

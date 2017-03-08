@@ -194,7 +194,7 @@ router.post('/addGroup', function(req, res){
 router.get('/todoDocs', function(req, res){
     MongoClient.connect(url, function(err, db){
         assert.equal(null, err);
-        db.collection('review').find( {"login" : null}).sort({"title": 1}).toArray(function(err, data){
+        db.collection('review').find( {"login" : null}).limit(100).sort({"title": 1}).toArray(function(err, data){
             if (err) console.log(err);
             res.send(data);
         });
@@ -221,6 +221,31 @@ router.get('/getEverything', function(req, res){
     });
 });
 
+//doing our best to avoid callback hell
+
+router.get('/chartData', function(req, res){
+    outData = [];
+    MongoClient.connect(url, function(err, db){
+        //assert(null, err);
+        db.collection('review').find().count().then(function(count){
+            outData["all"] = count;
+            db.collection('review').find({"login" : null}).count().then(function(count){
+                outData["todo"] = count;
+                db.collection('review').find({"important" : false}).count().then(function(count){
+                    outData["flagged"] = count;
+                    db.collection('review').find({"login": {$ne: null}}).count().then(function(count){
+                        outData["reviewed"] = count;
+                        lastOut = JSON.stringify(outData);
+                        console.log(lastOut);
+                        res.send(lastOut);
+                    });
+                });
+            });
+        });
+        
+
+    })
+});
 /*
 Date is given in Hourminutessecondsdaymonth
  */

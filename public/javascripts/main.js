@@ -54,6 +54,8 @@ var todoDocs;
                 selectedItem = null;
                 $scope.docsLeft--;
 
+                
+
             });
         
         };
